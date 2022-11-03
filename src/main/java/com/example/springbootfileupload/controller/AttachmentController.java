@@ -82,145 +82,145 @@ public class AttachmentController {
 //    }
 
 //    @GetMapping("/api/download/jts")
-    public Attachments downloadFileJts() {
-        List<String> pathFiles = attachmentService.getAllPathJts();
+//    public Attachments downloadFileJts() {
+//        List<String> pathFiles = attachmentService.getAllPathJts();
+//
+//        List<Attachment> attcs = new ArrayList<>();
+//
+//            pathFiles
+//                    .stream()
+//                    .forEach(file -> {
+//                        Resource fullPath = attachmentService.getFullPathJts(file);
+////                        System.out.println(fullPath);
+//
+//                        byte[] byteFile;
+//                        String base64String;
 
-        List<Attachment> attcs = new ArrayList<>();
-
-            pathFiles
-                    .stream()
-                    .forEach(file -> {
-                        Resource fullPath = attachmentService.getFullPathJts(file);
-//                        System.out.println(fullPath);
-
-                        byte[] byteFile;
-                        String base64String;
-
-                        try {
+//                        try {
                             //CONVERT FILE INTO BYTES
-                            byteFile = fullPath.getInputStream().readAllBytes();
+//                            byteFile = fullPath.getInputStream().readAllBytes();
 
                             //CONVERT INTO BASE64
-                            base64String = Base64.getEncoder().encodeToString(byteFile);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+//                            base64String = Base64.getEncoder().encodeToString(byteFile);
+//                        } catch (IOException e) {
+//                            throw new RuntimeException(e);
+//                        }
 
                         //CREATE NEW ATTACHMENT
-                        Attachment attc = new Attachment(fullPath.getFilename(), base64String);
+//                        Attachment attc = new Attachment(fullPath.getFilename(), base64String);
 
                         //PUSH NEW ATTACHMENT TO ATTACHMENTS LIST
-                        attcs.add(attc);
-                    });
+//                        attcs.add(attc);
+//                    });
 
         //START DELETE FILE AFTER HIT API
-        pathFiles
-                .stream()
-                .forEach(file -> {
-                    try {
-                        attachmentService.deleteFileJts(file);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+//        pathFiles
+//                .stream()
+//                .forEach(file -> {
+//                    try {
+//                        attachmentService.deleteFileJts(file);
+//
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                });
 
         //CREATE NEW ATTACHMENTS AND FILL WITH ATTCS
-        Attachments result = new Attachments(attcs);
-
-        return result;
-    }
+//        Attachments result = new Attachments(attcs);
+//
+//        return result;
+//    }
 
 //    @GetMapping("/api/download/its")
-    public Attachments downloadFileIts() throws IOException {
-        List<String> pathFiles = attachmentService.getAllPathIts();
-
-        List<Attachment> attcs = new ArrayList<>();
-
-            pathFiles
-                .stream()
-                    .forEach(file -> {
-                        Resource fullPath = null;
-                        fullPath = attachmentService.getFullPathIts(file);
+//    public Attachments downloadFileIts() throws IOException {
+//        List<String> pathFiles = attachmentService.getAllPathIts();
+//
+//        List<Attachment> attcs = new ArrayList<>();
+//
+//            pathFiles
+//                .stream()
+//                    .forEach(file -> {
+//                        Resource fullPath = null;
+//                        fullPath = attachmentService.getFullPathIts(file);
 
 //                        System.out.println(fullPath);
 
-                        byte[] byteFile;
-                        String base64String;
-
-                        try {
+//                        byte[] byteFile;
+//                        String base64String;
+//
+//                        try {
                             //CONVERT FILE INTO BYTES
-                            byteFile = fullPath.getInputStream().readAllBytes();
+//                            byteFile = fullPath.getInputStream().readAllBytes();
 
                             //CONVERT INTO BASE64
-                            base64String = Base64.getEncoder().encodeToString(byteFile);
-
-
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+//                            base64String = Base64.getEncoder().encodeToString(byteFile);
+//
+//
+//                        } catch (IOException e) {
+//                            throw new RuntimeException(e);
+//                        }
 
                         //CREATE NEW ATTACHMENT
-                        Attachment attc = new Attachment(fullPath.getFilename(), base64String);
+//                        Attachment attc = new Attachment(fullPath.getFilename(), base64String);
 
                         //PUSH NEW ATTACHMENT TO ATTACHMENTS LIST
-                        attcs.add(attc);
-                        System.out.println(fullPath);
-                        String abc =null;
-                        try {
-                            abc = fullPath.getURL().toString();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        try {
-                            File fileToDelete = fullPath.getFile();
-                            fileToDelete.setWritable(true);
-                            fileToDelete.setExecutable(true);
-                            RandomAccessFile raf = new RandomAccessFile(fileToDelete, "rw");
-                            try (Stream<String> lines = Files.lines(Paths.get(abc.replace("file:", "")))) {
-
-                                String content = lines.collect(Collectors.joining(System.lineSeparator()));
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            fullPath.getInputStream().close();
-                            raf.close();
-                            boolean dlt= fileToDelete.delete();
-
-                            System.out.println(dlt);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+//                        attcs.add(attc);
+//                        System.out.println(fullPath);
+//                        String abc =null;
+//                        try {
+//                            abc = fullPath.getURL().toString();
+//                        } catch (IOException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        try {
+//                            File fileToDelete = fullPath.getFile();
+//                            fileToDelete.setWritable(true);
+//                            fileToDelete.setExecutable(true);
+//                            RandomAccessFile raf = new RandomAccessFile(fileToDelete, "rw");
+//                            try (Stream<String> lines = Files.lines(Paths.get(abc.replace("file:", "")))) {
+//
+//                                String content = lines.collect(Collectors.joining(System.lineSeparator()));
+//
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                            fullPath.getInputStream().close();
+//                            raf.close();
+//                            boolean dlt= fileToDelete.delete();
+//
+//                            System.out.println(dlt);
+//                        } catch (IOException e) {
+//                            throw new RuntimeException(e);
+//                        }
 //                        System.out.println("abc "+ abc);
 //                        String cct = abc.replace("file:", "");
 //                        File fileToDelete = new File(cct);
 //                        System.out.println(cct);
 
-                    });
+//                    });
 
             //CREATE NEW ATTACHMENTS AND FILL WITH ATTCS
-            Attachments result = new Attachments(attcs);
+//            Attachments result = new Attachments(attcs);
+//
+//            return result;
+//        }
 
-            return result;
-        }
-
-    @GetMapping("/api/delete/its")
-    void deleteFileIts() throws IOException {
-        List<String> pathFiles = attachmentService.getAllPathIts();
-        System.out.println("Start deleting file");
-        //START DELETE FILE AFTER HIT API
-        pathFiles
-                .stream()
-                .forEach(file -> {
-                    try {
-                        attachmentService.deleteFileIts(file);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-    }
+//    @GetMapping("/api/delete/its")
+//    void deleteFileIts() throws IOException {
+//        List<String> pathFiles = attachmentService.getAllPathIts();
+//        System.out.println("Start deleting file");
+//        //START DELETE FILE AFTER HIT API
+//        pathFiles
+//                .stream()
+//                .forEach(file -> {
+//                    try {
+//                        attachmentService.deleteFileIts(file);
+//
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                });
+//    }
 
     @GetMapping("/api/download/{location}")
     public Attachments download(@PathVariable String location) throws IOException {
